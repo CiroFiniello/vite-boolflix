@@ -8,7 +8,7 @@ export default {
 </script>
 
 <template>
-<h1>Movie</h1>
+<h1>Movie comp</h1>
 </template>
 
 <style scoped>
