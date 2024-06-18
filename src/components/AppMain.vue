@@ -1,7 +1,12 @@
 <script>
+import MovieList from './MovieList.vue'
 export default {
+    components:{
+        MovieList
+    },
     data() {
-        return {
+        return 
+            {
         }
     }
 }
@@ -9,7 +14,7 @@ export default {
 
 <template>
 
-
+<MovieList/>
 
 </template>
 
