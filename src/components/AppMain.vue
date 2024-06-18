@@ -89,6 +89,26 @@ export default {
         return {
             Movies: [],
         }
+    },
+    methods: {
+        getMovies() {
+            axios.get('https://api.themoviedb.org/3/search/movie?api_key=f4f72d664eb55cb17ecad03ef50cc067&query=ritorno+al+futuro')
+            .then((response) => {
+                // handle success
+                console.log(response.data.results);
+                this.Movies = response.data.results;
+            })
+            .catch(function (error) {
+                // handle error
+                console.log(error);
+            })
+            .finally(function () {
+                // always executed
+            });
+        }
+    },
+    created(){
+        this.getMovies();
     }
 }
 </script>
@@ -96,7 +116,7 @@ export default {
 <template>
 
 <AppSearch/>
-<MovieList/>
+<MovieList :Movies="Movies" />
 
 </template>
 
