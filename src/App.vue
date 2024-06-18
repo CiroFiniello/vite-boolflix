@@ -1,30 +1,80 @@
 <script>
+// importo axios
+import axios from 'axios';
+//importo i figli
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
+//importo lo store
+import { store } from './store';
 
-export default {
-    components:{
+
+    export default {
+    components: {
         AppHeader,
-        AppMain
+        AppMain,
     },
     data() {
-        return 
-            {
+        return {
+        store,
         }
+    },
+
+    methods: {
+        // funzione per che mi inserisce nell' array i film
+        getItems() {
+
+        //creo una flag per la searchbar
+        let myURLFilm = store.filmURL
+        let myURLTVSeries = store.serieTvURL
+
+        //se utente ha fatto una ricerca
+        if(store.searchText !== ""){
+            myURLFilm += `&query=${store.searchText}`;
+            myURLTVSeries += `&query=${store.searchText}`
+        }
+
+        //chiamata axios per i film
+        axios
+            .get(myURLFilm)
+            .then((res => {
+            store.filmList = res.data.results;
+            }))
+            .catch((err) => {
+            console.log("Errori", err);
+            });
+
+            //chiamata axios per le serie tv
+            axios
+            .get(myURLTVSeries)
+            .then((res => {
+            store.serieTvList = res.data.results;
+            }))
+            .catch((err) => {
+            console.log("Errori", err);
+        });
     }
-}
-</script>
+    },
 
-<template>
-  
-<AppHeader/>
-<AppMain/>
+    created() {
+        this.getItems();
 
+    },
+    }
+    </script>
+
+    <template>
+
+    <header>
+        <AppHeader  @click.prevent="getItems"/>
+    </header>
+
+    <main>
+        <AppMain />
+    </main>
+    
 </template>
 
 <style lang="scss">
 @use './styles/general.scss' as *;
-@use '../node_modules/bootstrap/scss/bootstrap.scss';
-@use './styles/partials/mixins' as *;
 @use './styles/partials/variables' as *;
 </style>
