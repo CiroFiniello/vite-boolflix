@@ -77,7 +77,7 @@ li{
 <script>
 import MovieList from './MovieList.vue';
 import axios from 'axios';
-// import { store } from '../store.js'
+import { store } from '../store.js'
 import AppSearch from './AppSearch.vue';
 
 export default {
@@ -88,6 +88,7 @@ export default {
     data() {
         return {
             Movies: [],
+            store,
         }
     },
     methods: {
@@ -96,7 +97,7 @@ export default {
             .then((response) => {
                 // handle success
                 console.log(response.data.results);
-                this.Movies = response.data.results;
+                this.store.Movies = response.data.results;
             })
             .catch(function (error) {
                 // handle error
@@ -116,7 +117,7 @@ export default {
 <template>
 
 <AppSearch/>
-<MovieList :Movies="Movies" />
+<MovieList />
 
 </template>
 

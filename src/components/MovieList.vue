@@ -1,10 +1,10 @@
 <script>
+import { store } from '../store.js';
 
 export default {
-    props: {
-        Movies: {
-        type: Array,
-        required: true
+    data(){
+        return{
+            store,
         }
     }
 }
@@ -13,7 +13,7 @@ export default {
 <template>
 <h1>Movie comp</h1>
 <ul>
-        <li v-for="movie in Movies" :key="movie.id">
+        <li v-for="movie in store.Movies" :key="movie.id">
         <p>titolo: {{ movie.title }}</p>
         <p>titolo originale: {{ movie.original_title }}</p>
         <p>Lingua: {{ movie.original_language }}</p>
